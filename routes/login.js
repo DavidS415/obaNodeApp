@@ -8,6 +8,7 @@ const { protectRoute } = require("../auth/protect");
 const {registerView, loginView, registerUser, loginUser, logoutUser } = require('../controllers/loginController');
 const { dashboardView } = require("../controllers/dashboardController");
 const { formView, submitForm } = require("../controllers/formController");
+const { updateView } = require("../controllers/updateController");
 
 //Register Routes
 router.get('/register', registerView);
@@ -27,5 +28,8 @@ router.get("/dashboard", protectRoute, dashboardView);
 //Form Routes
 router.get("/form", protectRoute, formView);
 router.post("/form", protectRoute, submitForm);
+
+//Update Routes
+router.get("/update", protectRoute, updateView);
 
 module.exports = router;
