@@ -7,6 +7,37 @@
     </div>
 </div>
 <div>
+    <% if(details!=null) { %>
+        <table>
+        <tr>
+            <th>Tracker Placement ID</th>
+            <th>Start Date</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Current Status</th>
+            <th>Client</th>
+            <th>Account Manager</th>
+            <th>Recruiter</th>
+            <th>CTO</th>
+        </tr>
+        <% details.forEach(function(item){ %>
+        <tr>
+            <td><%= item.tracker_placement_id%></td>
+            <td><%= item.sdate%></td>
+            <td><%= item.first_name%></td>
+            <td><%= item.last_name%></td>
+            <td><%= item.current_status%></td>
+            <td><%= item.customer%></td>
+            <td><%= item.placement_am%></td>
+            <td><%= item.placement_recruiter%></td>
+            <td><%= item.placement_cto%></td>
+        
+        </tr>
+        <% }) %>
+        </table>
+        <% } %>
+</div>
+<div>
     <form method="post" action="/logout">
         <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Logout</button>
     </form>
