@@ -14,6 +14,7 @@ router.get('/register', registerView);
 router.post('/register', registerUser);
 
 //Login Routes
+router.get('/', loginView);
 router.get('/login', loginView);
 router.post('/login', loginUser);
 
