@@ -6,4 +6,13 @@
 
     </div>
 </div>
+
 <div>
+    <% if(details!=null) { %>
+        <select name="obrf_to_update">
+        <% details.forEach(function(item){ %>
+        <option><%= item.tracker_placement_id%></option>
+        <% }) %>
+        </select>
+        <% } %>
+</div>
