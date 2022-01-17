@@ -5,7 +5,7 @@ const router = express.Router();
 const { protectRoute } = require("../auth/protect");
 
 //Import action controllers
-const {registerView, loginView, registerUser, loginUser } = require('../controllers/loginController');
+const {registerView, loginView, registerUser, loginUser, logoutUser } = require('../controllers/loginController');
 const { dashboardView } = require("../controllers/dashboardController");
 const { formView, submitForm } = require("../controllers/formController");
 
@@ -16,6 +16,9 @@ router.post('/register', registerUser);
 //Login Routes
 router.get('/login', loginView);
 router.post('/login', loginUser);
+
+//Logout Routes
+router.post('/logout', logoutUser);
 
 //Dashboard Routes
 router.get("/dashboard", protectRoute, dashboardView);

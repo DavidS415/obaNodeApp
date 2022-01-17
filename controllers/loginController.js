@@ -79,9 +79,17 @@ const loginUser = (req, res) => {
     }
   };
 
+
+//Post Request that handles logout
+const logoutUser = (req, res) => {
+  req.logout();
+  res.redirect('/login');
+};
+
 module.exports =  {
     registerView,
     loginView,
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 };
