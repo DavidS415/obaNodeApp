@@ -1,11 +1,13 @@
 const express = require('express');
-
-const {registerView, loginView, registerUser, loginUser } = require('../controllers/loginController');
-const { protectRoute } = require("../auth/protect");
-const { dashboardView } = require("../controllers/dashboardController");
-const { formView } = require("../controllers/formController");
-
 const router = express.Router();
+
+//Import authentication controller
+const { protectRoute } = require("../auth/protect");
+
+//Import action controllers
+const {registerView, loginView, registerUser, loginUser } = require('../controllers/loginController');
+const { dashboardView } = require("../controllers/dashboardController");
+const { formView, submitForm } = require("../controllers/formController");
 
 //Register Routes
 router.get('/register', registerView);
@@ -20,5 +22,6 @@ router.get("/dashboard", protectRoute, dashboardView);
 
 //Form Routes
 router.get("/form", protectRoute, formView);
+router.post("/form", protectRoute, submitForm);
 
 module.exports = router;
