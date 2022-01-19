@@ -9,10 +9,13 @@
 
 <div>
     <% if(details!=null) { %>
+        <form action="/update/" method="get">
         <select name="obrf_to_update">
         <% details.forEach(function(item){ %>
-        <option><%= item.tracker_placement_id%></option>
+        <option value="<%= item._id%>"><%= item.tracker_placement_id%> - <%= item.first_name%> <%= item.last_name%></option>
         <% }) %>
         </select>
         <% } %>
+        <input type="submit" value="Submit" name="submit" class="btn btn-primary">
+        </form>
 </div>

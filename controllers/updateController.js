@@ -14,7 +14,20 @@ const updateView = (req, res) => {
     }
   });
   };
-
+const updateObrfView = (req, res) => {
+  const id = req.params.id;
+  Obrf.findById(id, function (err, allDetails) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("updateobrf", {
+        details: allDetails,
+        user: req.user
+      });
+    }
+  });
+}
 module.exports = {
     updateView,
+    updateObrfView,
   };
