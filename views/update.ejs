@@ -6,16 +6,55 @@
 
     </div>
 </div>
-
 <div>
+    <h5>Select an OBRF to update:</h5>
     <% if(details!=null) { %>
-        <form action="/update/" method="get">
-        <select name="obrf_to_update">
+        <select name="obrf_to_update" onchange="location = this.value;">
         <% details.forEach(function(item){ %>
-        <option value="<%= item._id%>"><%= item.tracker_placement_id%> - <%= item.first_name%> <%= item.last_name%></option>
+        <option value="/update/<%= item._id%>"><%= item.tracker_placement_id%> - <%= item.first_name%> <%= item.last_name%></option>
         <% }) %>
         </select>
         <% } %>
-        <input type="submit" value="Submit" name="submit" class="btn btn-primary">
-        </form>
 </div>
+<div>
+    <h5>Or search by name, email or phone number:</h5>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+</div>
+<div id="results">
+    <% if(details!=null) { %>
+        <table>
+        <tr>
+            <th>Tracker Placement ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+        </tr>
+        <% details.forEach(function(item){ %>
+        <tr>
+            <td><a href="/update/<%= item._id%>"><%= item.tracker_placement_id%></a></td>
+            <td><%= item.first_name%></td>
+            <td><%= item.last_name%></td>
+            <td><%= item.cell_phone%></td>
+            <td><%= item.email_address%></td>
+        </tr>
+        <% }) %>
+        </table>
+        <% } %>
+</div>
+<script>
+    const myFunction = () => {
+        const trs = document.querySelectorAll('#results tr:not(.header)')
+        const filter = document.querySelector('#myInput').value
+        const regex = new RegExp(filter, 'i')
+        const isFoundInTds = td => regex.test(td.innerHTML)
+        const isFound = childrenArr => childrenArr.some(isFoundInTds)
+        const setTrStyleDisplay = ({ style, children }) => {
+            style.display = isFound([
+                ...children // <-- All columns
+            ]) ? '' : 'none' 
+        }
+  
+        trs.forEach(setTrStyleDisplay)
+    }
+</script>
