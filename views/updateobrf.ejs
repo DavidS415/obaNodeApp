@@ -6,28 +6,590 @@
 
     </div>
 </div>
-    <table>
-    <tr>
-        <th>Tracker Placement ID</th>
-        <th>Start Date</th>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Current Status</th>
-        <th>Client</th>
-        <th>Account Manager</th>
-        <th>Recruiter</th>
-        <th>CTO</th>
-    </tr>
-    <tr>
-        <td><%= details.tracker_placement_id%></td>
-        <td><%= details.sdate%></td>
-        <td><%= details.first_name%></td>
-        <td><%= details.last_name%></td>
-        <td><%= details.current_status%></td>
-        <td><%= details.customer%></td>
-        <td><%= details.placement_am%></td>
-        <td><%= details.placement_recruiter%></td>
-        <td><%= details.placement_cto%></td>
-    
-    </tr>
-    </table>
+<p>What would you like to change to the OBRF for <%= details.first_name%> <%= details.last_name%> (Tracker Placemenet ID:<%= details.tracker_placement_id%>)?</p>
+<select onchange="selectUpdate(this)">
+    <option value="branch-select">Branch</option>
+    <option value="contract-type-select">Contract Type</option>
+    <option value="start-date-select">Start Date</option>
+    <option value="onboarding-type-select">Onboarding type</option>
+    <option value="consutlant-status-select">Consultant Status</option>
+    <option value="reporting-type-select">Reporting Type</option>
+    <option value="placementid">Tracker Placement ID</option>
+    <option value="pay-cycle-select">Pay Cycle</option>
+    <option value="first-name">First Name</option>
+    <option value="last-name">Last Name</option>
+    <option value="middle-name">Middle Name</option>
+    <option value="nick-name">Nick Name</option>
+    <option value="customer-select">Customer</option>
+    <option value="consumer-lending-select">Consumer Lending</option>
+    <option value="mailing-address">Mailing Address</option>
+    <option value="email-address">Email</option>
+    <option value="cell-phone">Cell Phone</option>
+    <option value="ssn-input">SSN</option>
+    <option value="dob-select">DOB</option>
+    <option value="military-veteran">Military Veteran Status</option>
+    <option value="military-spouse">Military Spouse Status</option>
+    <option value="candidate-source-select">Candidate Source</option>
+    <option value="candidateid">Tracker Candidate ID</option>
+    <option value="work-auth-select">Work Authorization</option>
+    <option value="visa-exp-select">Visa Expiration</option>
+    <option value="end-date-select">End Date</option>
+    <option value="job-title">Job Title</option>
+    <option value="hiring-manager">Hiring Manager</option>
+    <option value="work-location">Work Location</option>
+    <option value="recruiter">Recruiter</option>
+    <option value="sourcer">Sourcer</option>
+    <option value="am">Account Manager</option>
+    <option value="hourly-pay-rate">Hourly Wage</option>
+    <option value="health">Health Benefits</option>
+    <option value="misc-exp-type">Misc Expense Type</option>
+    <option value="misc-exp-amount">Misc Expense Amount</option>
+    <option value="np-name">Network Partner</option>
+    <option value="billing">Bill Rate</option>
+    <option value="cto">CTO</option>
+    <option value="current-status">Candidate Status</option>
+</select>
+<div>
+    <form action="/update/<%= details._id%>" method="post">
+            <div class="update-form" style="display: none;" id="branch.update">
+                <label for="branch-select">Branch:</label>
+                <select name="branch" id="branch-select">
+                    <option value="<%= details.branch%>">--Please choose a branch--</option>
+                    <option value="motown">Motown</option>
+                    <option value="south">South</option>
+                    <option value="west">West</option>
+                    <option value="midwest">MidWest</option>
+                    <option value="midatlantic">MidAtlantic</option>
+                    <option value="carolinas">Carolinas</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="contract_type.update">
+                <label for="contract-type-select">Contract Type:</label>
+                <select name="contract_type" id="contract-type-select">
+                    <option value="<%= details.contract_type%>">--Please choose a contract type--</option>
+                    <option value="w2/vacation/exempt">W2 with vacation (exempt)</option>
+                    <option value="w2/vacation/non-exempt">W2 with vacation (non-exempt)</option>
+                    <option value="w2/no-vacation/exempt">W2 without vacation (exempt)</option>
+                    <option value="w2/no-vacation/non-exempt">W2 without vacation (non-exempt)</option>
+                    <option value="1099">1099</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="sdate.update">
+                <label for="start-date-select">Start Date:</label>
+                <input type="date" id="start-date-select" name="sdate" value="<%= details.sdate%>">
+            </div>
+            <div class="update-form" style="display: none;" id="onboarding_type.update">
+                <label for="onboarding-type-select">Onboarding type:</label>
+                <select name="onboarding_type" id="onboarding-type-select">
+                    <option value="<%= details.onboarding_type%>">--Please select an onboarding type--</option>
+                    <option value="new-hire">New Hire</option>
+                    <option value="rehire">Rehire</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="consultant_status.update">
+                <label for="consutlant-status-select">Consultant Status:</label>
+                <select name="consultant_status" id="consutlant-status-select">
+                    <option value="<%= details.consultant_status%>">--Please select a consultant status--</option>
+                    <option value="full-time">Full Time</option>
+                    <option value="part-time">Part Time</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="reporting_type.update">
+                <label for="reporting-type-select">Reporting Type:</label>
+                <select name="reporting_type" id="reporting-type-select">
+                    <option value="<%= details.reporting_type%>">--Please select a reporting type--</option>
+                    <option value="cto">CTO</option>
+                    <option value="fixed">Fixed Fee</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="tracker_placement_id.update">
+                <label for="placementid">Tracker Placement ID:</label>
+                <input type="number" id="placementid" name="tracker_placement_id" value="<%= details.tracker_placement_id%>">
+            </div>
+            <div class="update-form" style="display: none;" id="pay_cycle.update">
+                <label for="pay-cycle-select">Pay Cycle:</label>
+                <select name="pay_cycle" id="pay-cycle-select">
+                    <option value="<%= details.pay_cycle%>">--Please select a pay cycle--</option>
+                    <option value="bi-monthly">Bi-Monthly</option>
+                    <option value="weekly">Weekly</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="first_name.update">
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" name="first_name" value="<%= details.first_name%>">
+            </div>
+            <div class="update-form" style="display: none;" id="last_name.update">
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" name="last_name" value="<%= details.last_name%>">
+            </div>
+            <div class="update-form" style="display: none;" id="middle_name.update">
+                <label for="middle-name">Middle Name:</label>
+                <input type="text" id="middle-name" name="middle_name" value="<%= details.middle_name%>">
+            </div>
+            <div class="update-form" style="display: none;" id="nick_name.update">
+                <label for="nick-name">Nick Name:</label>
+                <input type="text" id="nick-name" name="nick_name" value="<%= details.nick_name%>">
+            </div>
+            <div class="update-form" style="display: none;" id="customer.update">
+                <label for="customer-select">Customer:</label>
+                <select name="customer" id="customer-select">
+                    <option value="<%= details.customer%>">--Please select a customer--</option>
+                    <option value="wellsfargomrs">Wells Fargo MRS</option>
+                    <option value="wellsfargonon-it">Wells Fargo Non-IT</option>
+                    <option value="cambia">Cambia</option>
+                    <option value="chevron">Chevron</option>
+                    <option value="farmers">Farmers</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="wf_consumer_lending.update">
+                <label for="consumer-lending-select">Wells Fargo Consumer Lending Hire:</label>
+                <select name="wf_consumer_lending" id="consumer-lending-select">
+                    <option value="<%= details.wf_consumer_lending%>">Select to update</option>
+                    <option value="No">No</option>
+                    <option value="Yes">Yes</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="mailing_address.update">
+                <label for="mailing-address">Mailing Address:</label>
+                <input type="text" id="mailing-address" name="mailing_address" value="<%= details.mailing_address%>">
+            </div>
+            <div class="update-form" style="display: none;" id="email_address.update">
+                <label for="email-address">Email:</label>
+                <input type="email" id="email-address" name="email_address" value="<%= details.email_address%>">
+            </div>
+            <div class="update-form" style="display: none;" id="cell_phone.update">
+                <label for="cell-phone">Cell Phone:</label>
+                <input type="text" id="cell-phone" name="cell_phone" title="Please provide a valid 10 digit phone number" pattern="[1-9]{1}[0-9]{9}" value="<%= details.cell_phone%>"> 
+            </div>
+            <div class="update-form" style="display: none;" id="ssn.update">
+                <label for="ssn-input">SSN:</label>
+                <input type="text" id="ssn-input" name="ssn" title="Please provide a valid 9 digit ssn" pattern="[0-9]{9}" value="<%= details.ssn%>"> 
+            </div>
+            <div class="update-form" style="display: none;" id="dob.update">
+                <label for="dob-select">DOB:</label>
+                <input type="date" id="dob-select" name="dob" value="<%= details.dob%>">
+            </div>
+            <div class="update-form" style="display: none;" id="militray_veteran.update">
+                <label for="military-veteran">Military Veteran Status:</label>
+                <select name="militray_veteran" id="military-veteran">
+                    <option value="<%= details.militray_veteran%>">Select to update</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="militray_spouse.update">
+                <label for="military-spouse">Military Spouse Status:</label>
+                <select name="militray_spouse" id="military-spouse">
+                    <option value="<%= details.militray_spouse%>">Select to update</option>
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                    <option value="unknown">Unknown</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="candidate_source.update">
+                <label for="candidate-source-select">Candidate Source:</label>
+                <select name="candidate_source" id="candidate-source-select">
+                    <option value="<%= details.candidate_source%>">--Please select a candidate source--</option>
+                    <option value="dice">Dice</option>
+                    <option value="careerbuilder">Career Builder</option>
+                    <option value="linkedin">LinkedIn</option>
+                    <option value="indeed">InDeed</option>
+                    <option value="referral">Referral</option>
+                    <option value="networkpartner">Network Partner</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="tracker_candidate_id.update">
+                <label for="candidateid">Tracker Candidate ID:</label>
+                <input type="number" id="candidateid" name="tracker_candidate_id" value="<%= details.tracker_candidate_id%>">
+            </div>
+            <div class="update-form" style="display: none;" id="visa.update">
+                <label for="work-auth-select">Visa or Work Authorization:</label>
+                <select name="visa" id="work-auth-select">
+                    <option value="<%= details.visa%>">--Please select candidate work authorization or visa type--</option>
+                    <option value="usc">US Citizen</option>
+                    <option value="greencard">Green Card/Perm Resident</option>
+                    <option value="h4">H4 EAD</option>
+                    <option value="h1b">H1b Visa</option>
+                    <option value="l2">L2 EAD</option>
+                    <option value="asylum">Asylum EAD</option>
+                    <option value="opt/cpt">OPT or CPT EAD</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="visa_expiration_date.update">
+                <label for="visa-exp-select">Visa Expiration:</label>
+                <input type="date" id="visa-exp-select" name="visa_expiration_date" value="<%= details.visa_expiration_date%>">
+            </div>
+            <div class="update-form" style="display: none;" id="end_date.update">
+                <label for="end-date-select">End Date:</label>
+                <input type="date" id="end-date-select" name="end_date" value="<%= details.end_date%>">
+            </div>
+            <div class="update-form" style="display: none;" id="candidate_job_title.update">
+                <label for="job-title">Job Title:</label>
+                <input type="text" id="job-title" name="candidate_job_title" value="<%= details.candidate_job_title%>">
+            </div>
+            <div class="update-form" style="display: none;" id="hiring_manager_name.update">
+                <label for="hiring-manager">Site Supervisor (Hiring Manager):</label>
+                <input type="text" id="hiring-manager" name="hiring_manager_name" value="<%= details.hiring_manager_name%>">
+            </div>
+            <div class="update-form" style="display: none;" id="candidate_work_location.update">
+                <label for="work-location">Work Location (or Remote):</label>
+                <input type="text" id="work-location" name="candidate_work_location" value="<%= details.candidate_work_location%>">
+            </div>
+            <div class="update-form" style="display: none;" id="placement_recruiter.update">
+                <label for="recruiter">Recrutier:</label>
+                <input type="text" id="recruiter" name="placement_recruiter" value="<%= details.placement_recruiter%>">
+            </div>
+            <div class="update-form" style="display: none;" id="placement_sourcer.update">
+                <label for="sourcer">Sourcer:</label>
+                <input type="text" id="sourcer" name="placement_sourcer" value="<%= details.placement_sourcer%>">
+            </div>
+            <div class="update-form" style="display: none;" id="placement_am.update">
+                <label for="am">Account Manager:</label>
+                <input type="text" id="am" name="placement_am" value="<%= details.placement_am%>">
+            </div>
+            <div class="update-form" style="display: none;" id="hourly_wage.update">
+                <label for="hourly-pay-rate">Hourly Wage:</label>
+                <input type="number" id="hourly-pay-rate" name="hourly_wage" step="0.01" value="<%= details.hourly_wage%>">
+            </div>
+            <div class="update-form" style="display: none;" id="health_benefits.update">
+                <label for="health">Health Benefits</label>
+                <select name="health_benefits" id="health">
+                    <option value="<%= details.health_benefits%>">Select to update</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="misc_exp_type.update">
+                <label for="misc-exp-type">Misc Expense Type:</label>
+                <select name="misc_exp_type" id="misc-exp-type">
+                    <option value="<%= details.misc_exp_type%>">Select to update</option>
+                    <option value="N/A">N/A</option>
+                    <option value="npa">NPA Fee</option>
+                    <option value="immigration">Immigration Expense</option>
+                    <option value="referral">Referral</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="update-form" style="display: none;" id="misc_exp_amount.update">
+                <label for="misc-exp-amount">Misc Expense Amount:</label>
+                <input type="number" id="misc-exp-amount" name="misc_exp_amount" step="0.01" placeholder="Enter 0 if there is none" value="<%= details.misc_exp_amount%>">
+            </div>
+            <div class="update-form" style="display: none;" id="network_partner_name.update">
+                <label for="np-name">Network Partner:</label>
+                <input type="text" id="np-name" name="network_partner_name" value="<%= details.network_partner_name%>">
+            </div>
+            <div class="update-form" style="display: none;" id="bill_rate.update">
+                <label for="billing">Bill Rate:</label>
+                <input type="number" id="billing" name="bill_rate" step="0.01" value="<%= details.bill_rate%>">
+            </div>
+            <div class="update-form" style="display: none;" id="placement_cto.update">
+                <label for="cto">CTO:</label>
+                <input type="number" id="cto" name="placement_cto" step="0.01" value="<%= details.placement_cto%>">
+            </div>
+            <div class="update-form" style="display: none;" id="current_status.update">
+                <label for="current-status">Candidate Status:</label>
+                <select name='current_status' id="current-status">
+                    <option value="<%= details.current_status%>">Select to update</option>
+                    <option value="OBRF Created">OBRF Created</option>
+                    <option value="Offer Letter Sent">Offer Letter Sent</option>
+                    <option value="Background Requested">Background Requested</option>
+                    <option value="OBRF Submitted">OBRF Submitted</option>
+                    <option value="Onboarding Complete">Onboarding Complete</option>
+                    <option value="Consultant Started">Consultant Started</option>
+                    <option value="Onboarding Cancelled">Onboarding Cancelled</option>
+                </select>
+            </div>
+                <input type="submit" value="Submit" name="submit" class="btn btn-primary">
+    </form>
+</div>  
+
+<script>
+    function selectUpdate(that) {
+        if (that.value == "branch-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("branch.update").style.display = "block";
+        }
+        else if (that.value == "contract-type-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("contract_type.update").style.display = "block";
+        }
+        else if (that.value == "start-date-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("sdate.update").style.display = "block";
+        }
+        else if (that.value == "onboarding-type-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("onboarding_type.update").style.display = "block";
+        }
+        else if (that.value == "consutlant-status-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("consultant_status.update").style.display = "block";
+        }
+        else if (that.value == "reporting-type-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("reporting_type.update").style.display = "block";
+        }
+        else if (that.value == "placementid") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("tracker_placement_id.update").style.display = "block";
+        }
+        else if (that.value == "pay-cycle-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("pay_cycle.update").style.display = "block";
+        }
+        else if (that.value == "first-name") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("first_name.update").style.display = "block";
+        }
+        else if (that.value == "last-name") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("last_name.update").style.display = "block";
+        }
+        else if (that.value == "middle-name") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("middle_name.update").style.display = "block";
+        }
+        else if (that.value == "nick-name") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("nick_name.update").style.display = "block";
+        }
+        else if (that.value == "customer-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("customer.update").style.display = "block";
+        }
+        else if (that.value == "consumer-lending-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("wf_consumer_lending.update").style.display = "block";
+        }
+        else if (that.value == "mailing-address") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("mailing_address.update").style.display = "block";
+        }
+        else if (that.value == "email-address") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("email_address.update").style.display = "block";
+        }
+        else if (that.value == "cell-phone") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("cell_phone.update").style.display = "block";
+        }
+        else if (that.value == "ssn-input") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("ssn.update").style.display = "block";
+        }
+        else if (that.value == "dob-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("dob.update").style.display = "block";
+        }
+        else if (that.value == "military-veteran") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("militray_veteran.update").style.display = "block";
+        }
+        else if (that.value == "military-spouse") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("militray_spouse.update").style.display = "block";
+        }
+        else if (that.value == "candidate-source-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("candidate_source.update").style.display = "block";
+        }
+        else if (that.value == "candidateid") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("tracker_candidate_id.update").style.display = "block";
+        }
+        else if (that.value == "work-auth-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("visa.update").style.display = "block";
+        }
+        else if (that.value == "visa-exp-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("visa_expiration_date.update").style.display = "block";
+        }
+        else if (that.value == "end-date-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("end_date.update").style.display = "block";
+        }
+        else if (that.value == "job-title") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("candidate_job_title.update").style.display = "block";
+        }
+        else if (that.value == "hiring-manager") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("hiring_manager_name.update").style.display = "block";
+        }
+        else if (that.value == "work-location") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("candidate_work_location.update").style.display = "block";
+        }
+        else if (that.value == "recruiter") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("placement_recruiter.update").style.display = "block";
+        }
+        else if (that.value == "sourcer") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("placement_sourcer.update").style.display = "block";
+        }
+        else if (that.value == "am") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("placement_am.update").style.display = "block";
+        }
+        else if (that.value == "hourly-pay-rate") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("hourly_wage.update").style.display = "block";
+        }
+        else if (that.value == "health") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("health_benefits.update").style.display = "block";
+        }
+        else if (that.value == "misc-exp-type") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("misc_exp_type.update").style.display = "block";
+        }
+        else if (that.value == "misc-exp-amount") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("misc_exp_amount.update").style.display = "block";
+        }
+        else if (that.value == "np-name") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("network_partner_name.update").style.display = "block";
+        }
+        else if (that.value == "billing") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("bill_rate.update").style.display = "block";
+        }
+        else if (that.value == "cto") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("placement_cto.update").style.display = "block";
+        }
+        else if (that.value == "current-status") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("current_status.update").style.display = "block";
+        }
+        else {
+            alert('Error');
+        };
+    }
+</script>
