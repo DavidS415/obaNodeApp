@@ -25,6 +25,13 @@ app.use(session({
     resave: true
   }));
 
+var moment = require('moment');
+var requiredDateFormat = "YYYY-MM-DD"; // this is just an example of storing a date format once so you can change it in one place and have it propagate
+var shortDateFormat = "MMMM Do YYYY"; 
+app.locals.moment = moment; // this makes moment available as a variable in every EJS page
+app.locals.requiredDateFormat = requiredDateFormat;
+app.locals.shortDateFormat = shortDateFormat;
+
 app.use(passport.initialize());
 app.use(passport.session());
 //Routes

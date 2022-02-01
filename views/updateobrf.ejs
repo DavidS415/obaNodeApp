@@ -76,7 +76,7 @@
             </div>
             <div class="update-form" style="display: none;" id="sdate.update">
                 <label for="start-date-select">Start Date:</label>
-                <input type="date" id="start-date-select" name="sdate" value="<%= details.sdate%>">
+                <input type="date" id="start-date-select" name="sdate" value="<%= moment(details.sdate).format(requiredDateFormat) %>">
             </div>
             <div class="update-form" style="display: none;" id="onboarding_type.update">
                 <label for="onboarding-type-select">Onboarding type:</label>
@@ -168,7 +168,7 @@
             </div>
             <div class="update-form" style="display: none;" id="dob.update">
                 <label for="dob-select">DOB:</label>
-                <input type="date" id="dob-select" name="dob" value="<%= details.dob%>">
+                <input type="date" id="dob-select" name="dob" value="<%= moment(details.dob).format(requiredDateFormat) %>">
             </div>
             <div class="update-form" style="display: none;" id="militray_veteran.update">
                 <label for="military-veteran">Military Veteran Status:</label>
@@ -220,11 +220,11 @@
             </div>
             <div class="update-form" style="display: none;" id="visa_expiration_date.update">
                 <label for="visa-exp-select">Visa Expiration:</label>
-                <input type="date" id="visa-exp-select" name="visa_expiration_date" value="<%= details.visa_expiration_date%>">
+                <input type="date" id="visa-exp-select" name="visa_expiration_date" value="<%= moment(details.visa_expiration_date).format(requiredDateFormat) %>">
             </div>
             <div class="update-form" style="display: none;" id="end_date.update">
                 <label for="end-date-select">End Date:</label>
-                <input type="date" id="end-date-select" name="end_date" value="<%= details.end_date%>">
+                <input type="date" id="end-date-select" name="end_date" value="<%= moment(details.end_date).format(requiredDateFormat) %>">
             </div>
             <div class="update-form" style="display: none;" id="candidate_job_title.update">
                 <label for="job-title">Job Title:</label>
