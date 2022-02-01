@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <title>Welcome to S3!</title>
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<style>
+  #logout {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  cursor: pointer;
+}
+table, th, td{
+        border:1px solid black;
+      }
+
+.wrapper {
+  position: relative;
+  width: 400px;
+  height: 200px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.signature-pad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width:400px;
+  height:200px;
+  background-color: white;
+  border:1px solid black;
+}
+</style>
+</head>
+<body>
+    <div id="contentToPrint">
+    <h3>Congratulations on your offer <%= details.first_name%>!</h3>
+    <table>
+        <tr>
+            <td colspan="2">Offer Letter & Compensation Plan</td>
+        </tr>
+        <tr>
+            <td>Consultant Legal Name:</td>
+            <td><%= details.first_name%> <%= details.last_name%></td>
+        </tr>
+        <tr>
+            <td>Job Title:</td>
+            <td><%= details.candidate_job_title%></td>
+        </tr>
+        <tr>
+            <td>Assigned to S3 Customer:</td>
+            <td><%= details.customer%></td>
+        </tr>
+        <tr>
+            <td>Work Location Address:</td>
+            <td><%= details.candidate_work_location%></td>
+        </tr>
+        <tr>
+            <td>Consultant Status:</td>
+            <td><%= details.consultant_status%></td>
+        </tr>
+        <tr>
+            <td>Contract Type:</td>
+            <td><%= details.contract_type%></td>
+        </tr>
+        <tr>
+            <td>Pay Cycle:</td>
+            <td><%= details.pay_cycle%></td>
+        </tr>
+        <tr>
+            <td>Hourly Pay Rate:</td>
+            <td>$<%= details.hourly_wage%></td>
+        </tr>
+        <tr>
+            <td>Hourly Overtime Rate:</td>
+            <td>$<span id="print"></span></td>
+        </tr>
+        <tr>
+            <td>Benefits:</td>
+            <td><%= details.health_benefits%></td>
+        </tr>
+        <tr>
+            <td>Start Date (on or about):</td>
+            <td><%= moment(details.sdate).format(shortDateFormat) %></td>
+        </tr>
+        <tr>
+            <td>End Date:</td>
+            <td><%= moment(details.end_date).format(shortDateFormat) %></td>
+        </tr>
+    </table>
+    </div>
+    <div class="sig">
+    <div class="wrapper">
+        <canvas id="signature-pad" class="signature-pad" width=400 height=200></canvas>
+    </div>
+      
+      <button id="save-png">Save Signature</button>
+      <button id="clear">Clear</button>
+    </div>
+    <button onclick="Convert_HTML_To_PDF();">Submit your offer letter</button>
+    <textarea id="sig-dataUrl" class="form-control" rows="5" style="display: none;">Data URL for your signature will go here!</textarea>
+    <img id="sig-image" src="" alt="Your signature will go here!" style="display: none;"/>
+<script>
+    const multiply = (number) => {
+        if ("<%= details.contract_type%>".includes("non")) {
+            return number *= 1.5;
+        }
+        return number
+    };
+
+    document.getElementById("print").innerHTML = multiply("<%= details.hourly_wage%>");
+</script>
+<script>
+    var canvas = document.getElementById('signature-pad');
+
+    // Adjust canvas coordinate space taking into account pixel ratio,
+    // to make it look crisp on mobile devices.
+    // This also causes canvas to be cleared.
+    function resizeCanvas() {
+        // When zoomed out to less than 100%, for some very strange reason,
+        // some browsers report devicePixelRatio as less than 1
+        // and only part of the canvas is cleared then.
+        var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+        canvas.width = canvas.offsetWidth * ratio;
+        canvas.height = canvas.offsetHeight * ratio;
+        canvas.getContext("2d").scale(ratio, ratio);
+    }
+
+    window.onresize = resizeCanvas;
+    resizeCanvas();
+
+    var signaturePad = new SignaturePad(canvas, {
+        backgroundColor: 'rgb(255, 255, 255)' // necessary for saving image as JPEG; can be removed is only saving as PNG or SVG
+    });
+
+    var sigText = document.getElementById("sig-dataUrl");
+    var sigImage = document.getElementById("sig-image");
+
+    document.getElementById('save-png').addEventListener('click', function () {
+        if (signaturePad.isEmpty()) {
+            return alert("Please provide a signature first.");
+        }
+  
+        var dataUrl = signaturePad.toDataURL('image/png');
+        sigText.innerHTML = dataUrl;
+        sigImage.setAttribute("src", dataUrl);
+    }, false);
+
+    document.getElementById('clear').addEventListener('click', function () {
+        signaturePad.clear();
+    });
+</script>
+
+<script>
+    function Convert_HTML_To_PDF() {
+        var pdf = new jsPDF('p', 'pt', 'letter');
+        // source can be HTML-formatted string, or a reference
+        // to an actual DOM element from which the text will be scraped.
+        source = $('#customers')[0];
+
+        // we support special element handlers. Register them with jQuery-style 
+        // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
+        // There is no support for any other type of selectors 
+        // (class, of compound) at this time.
+        specialElementHandlers = {
+            // element with id of "bypass" - jQuery style selector
+            '#bypassme': function (element, renderer) {
+                // true = "handled elsewhere, bypass text extraction"
+                return true
+            }
+        };
+        margins = {
+            top: 80,
+            bottom: 60,
+            left: 40,
+            width: 522
+        };
+         // all coords and widths are in jsPDF instance's declared units
+        // 'inches' in this case
+        pdf.fromHTML(
+        source, // HTML string or DOM elem ref.
+        margins.left, // x coord
+        margins.top, { // y coord
+            'width': margins.width, // max width of content on PDF
+            'elementHandlers': specialElementHandlers
+        },
+
+        function (dispose) {
+            // dispose: object with X, Y of the last line add to the PDF 
+            //          this allow the insertion of new lines after html
+            pdf.save('Test.pdf');
+        }, margins);
+    }
+</script>
+</body>
+</html>

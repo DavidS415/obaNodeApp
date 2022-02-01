@@ -9,6 +9,7 @@ const {registerView, loginView, registerUser, loginUser, logoutUser } = require(
 const { dashboardView } = require("../controllers/dashboardController");
 const { formView, submitForm } = require("../controllers/formController");
 const { updateView, updateObrfView, updateObrfEdit } = require("../controllers/updateController");
+const { offerView } = require("../controllers/offerController");
 
 //Register Routes
 router.get('/register', registerView);
@@ -33,5 +34,8 @@ router.post("/form", protectRoute, submitForm);
 router.get("/update", protectRoute, updateView);
 router.get("/update/:id", protectRoute, updateObrfView);
 router.post("/update/:id", protectRoute, updateObrfEdit);
+
+//Offer Letter Routes
+router.get("/offerletter/:id", offerView);
 
 module.exports = router;
