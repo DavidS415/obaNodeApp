@@ -162,6 +162,9 @@ const ObrfSchema = new mongoose.Schema({
       required: true,
       default: "OBRF Created",
   },
+  file_paths: {
+    type: Array,
+}
 });
 const Obrf = mongoose.model("Obrf", ObrfSchema);
 module.exports = Obrf;
