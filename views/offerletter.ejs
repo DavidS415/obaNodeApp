@@ -98,7 +98,9 @@ table, th, td{
         </tr>
     </table>
     </div>
-    <div id="elementH"></div>
+    <div id="elementH" style="display: none;">
+        <img id="sig-image" src="" alt="Your signature will go here!"/>
+    </div>
     <div class="sig">
     <div class="wrapper">
         <canvas id="signature-pad" class="signature-pad" width=400 height=200></canvas>
@@ -112,7 +114,6 @@ table, th, td{
         <button type="submit">Submit your offer letter</button>
     </form>
     <textarea id="sig-dataUrl" class="form-control" rows="5" style="display: none;">Data URL for your signature will go here!</textarea>
-    <img id="sig-image" src="" alt="Your signature will go here!" style="display: none;"/>
 <script>
     const fileloc = "/files/offerletterfor-" + "<%= details.id%>" + ".pdf";
     document.getElementById("filelocation").value = fileloc;
@@ -158,6 +159,8 @@ table, th, td{
             return alert("Please provide a signature first.");
         }
   
+        document.getElementById("elementH").style.display = "block";
+        document.getElementById("signature-pad").style.display = "none";
         var dataUrl = signaturePad.toDataURL('image/png');
         sigText.innerHTML = dataUrl;
         sigImage.setAttribute("src", dataUrl);
@@ -165,6 +168,8 @@ table, th, td{
 
     document.getElementById('clear').addEventListener('click', function () {
         signaturePad.clear();
+        document.getElementById("signature-pad").style.display = "block";
+        document.getElementById("elementH").style.display = "none";
     });
 </script>
 </body>
