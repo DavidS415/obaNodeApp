@@ -304,8 +304,13 @@
             </div>
                 <input type="submit" value="Submit" name="submit" class="btn btn-primary">
     </form>
-</div>  
-
+</div><br>
+<div>
+    <p>Or send an offer letter:</p>
+    <form action="/sendlink/<%= details._id%>" method="post">
+        <button name="foo" value="" class="btn btn-primary">Send</button>
+    </form>
+</div><br>
 <script>
     function selectUpdate(that) {
         if (that.value == "branch-select") {
