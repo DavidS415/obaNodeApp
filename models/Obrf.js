@@ -163,8 +163,12 @@ const ObrfSchema = new mongoose.Schema({
       default: "OBRF Created",
   },
   file_paths: {
-    type: Array,
-}
+      type: Array,
+  },
+
+  signature_image: {
+      type: String,
+  }
 });
 const Obrf = mongoose.model("Obrf", ObrfSchema);
 module.exports = Obrf;

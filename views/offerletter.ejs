@@ -9,6 +9,17 @@
     crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+<script>
+    function showSignature() {
+        if (typeof "<%= details.signature_image%>" !== 'undefined') {
+            var newDataUrl = "<%= details.signature_image%>";
+            var newSigImage = document.getElementById("sig-image");
+            sigImage.setAttribute("src", newDataUrl);
+            document.getElementById("elementH").style.display = "block";
+            document.getElementById("signature-pad").style.display = "none";
+        }
+    }
+</script>
 <style>
   #logout {
   background: none!important;
@@ -41,7 +52,7 @@ table, th, td{
 }
 </style>
 </head>
-<body>
+<body onload="showSignature()">
     <div id="test">
     <h3>Congratulations on your offer <%= details.first_name%>!</h3>
     <table>
@@ -164,6 +175,10 @@ table, th, td{
         var dataUrl = signaturePad.toDataURL('image/png');
         sigText.innerHTML = dataUrl;
         sigImage.setAttribute("src", dataUrl);
+        $.post("/savesiganture/<%= details._id%>",
+        {
+            signature_image: dataUrl,
+        });
     }, false);
 
     document.getElementById('clear').addEventListener('click', function () {
