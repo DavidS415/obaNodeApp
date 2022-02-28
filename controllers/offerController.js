@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const Obrf = require("../models/Obrf");
 const { savePDF } = require("../services/savePDF");
 const { sendLink } = require("../services/sendLink");
+const { updateSent } = require("../services/updateSent");
 
 const offerView = (req, res) => {
     const id = req.params.id;
@@ -46,7 +47,8 @@ const offerSend = (req, res) => {
   const id = req.params.id;
   const offerid = id.toString();
   sendLink(id);
-  Obrf.findById(id, function (err, allDetails) {
+  updateSent(id);
+  Obrf.findById(id, function (err) {
     if (err) {
       console.log(err);
     } else {
