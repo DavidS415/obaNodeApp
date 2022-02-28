@@ -3,6 +3,7 @@ const Obrf = require("../models/Obrf");
 const { savePDF } = require("../services/savePDF");
 const { sendLink } = require("../services/sendLink");
 const { updateSent } = require("../services/updateSent");
+const { updateSigned } = require("../services/updateSigned");
 
 const offerView = (req, res) => {
     const id = req.params.id;
@@ -34,6 +35,7 @@ const offerSubmit = (req, res) => {
   const id = req.params.id;
   const offerid = id.toString();
   savePDF(id);
+  updateSigned(id);
   Obrf.findByIdAndUpdate(id, req.body, function (err, allDetails) {
     if (err) {
       console.log(err);
