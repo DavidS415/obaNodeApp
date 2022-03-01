@@ -11,12 +11,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
 <script>
     function showSignature() {
-        if (typeof "<%= details.signature_image%>" !== 'undefined') {
-            var newDataUrl = "<%= details.signature_image%>";
+        var newDataUrl = "<%= details.signature_image%>";
+        if (newDataUrl === '') {
+            document.getElementById("elementH").style.display = "none";
+            document.getElementById("signature-pad").style.display = "block";
+            console.log("no image");
+        } else {
             var newSigImage = document.getElementById("sig-image");
             sigImage.setAttribute("src", newDataUrl);
             document.getElementById("elementH").style.display = "block";
             document.getElementById("signature-pad").style.display = "none";
+            console.log("image");
         }
     }
 </script>
