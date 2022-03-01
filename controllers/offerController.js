@@ -84,6 +84,18 @@ const saveSignature = (req, res) => {
   });
 };
 
+const deleteSignature = (req, res) => {
+  const id = req.params.id;
+  const offerid = id.toString();
+  Obrf.findByIdAndUpdate(id, req.body, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/offerletter/" + offerid);
+    };
+  });
+};
+
 module.exports = {
     offerView,
     offerSubmit,
@@ -91,4 +103,5 @@ module.exports = {
     offerSend,
     offerSent,
     saveSignature,
+    deleteSignature,
   };
