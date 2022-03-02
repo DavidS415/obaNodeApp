@@ -5,7 +5,7 @@ const passport = require("passport");
 //Get request to view form
 
 const formView = (req, res) => {
-    res.render("form", {
+    res.render("User/form", {
       user: req.user
     });
   };

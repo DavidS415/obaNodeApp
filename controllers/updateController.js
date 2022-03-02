@@ -7,7 +7,7 @@ const updateView = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render("update", { 
+      res.render("User/update", { 
         details: allDetails,
         user: req.user
       });
@@ -20,7 +20,7 @@ const updateObrfView = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render("updateobrf", {
+      res.render("User/updateobrf", {
         details: allDetails,
         user: req.user
       });
@@ -34,7 +34,7 @@ const updateObrfEdit = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      res.render("updateobrf", {
+      res.render("User/updateobrf", {
         details: allDetails,
         user: req.user
       });

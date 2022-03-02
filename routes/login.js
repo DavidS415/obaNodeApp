@@ -35,12 +35,15 @@ router.get("/update", protectRoute, updateView);
 router.get("/update/:id", protectRoute, updateObrfView);
 router.post("/update/:id", protectRoute, updateObrfEdit);
 
-//Offer Letter Routes
+//Offer Letter Routes (for User)
+
+router.get("/sendlink/:id", protectRoute, offerSent)
+router.post("/sendlink/:id", protectRoute, offerSend);
+
+//Offer Letter Routes (for Candidate)
 router.get("/offerletter/:id", offerView);
 router.post("/offerletter/:id", offerSubmit);
 router.get("/thankyou/:id", thankyouView);
-router.get("/sendlink/:id", protectRoute, offerSent)
-router.post("/sendlink/:id", protectRoute, offerSend);
 router.post("/savesiganture/:id", saveSignature);
 router.post("/deletesiganture/:id", deleteSignature);
 

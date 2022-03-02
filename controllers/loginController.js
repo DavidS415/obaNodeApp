@@ -5,7 +5,7 @@ const passport = require("passport");
 
 //Get Register Page View
 const registerView = (req, res) => {
-    res.render("register", {
+    res.render("User/register", {
     } );
 }
 
@@ -23,7 +23,7 @@ const registerUser = (req, res) => {
       User.findOne({ email: email }).then((user) => {
         if (user) {
           console.log("email exists");
-          res.render("register", {
+          res.render("User/register", {
             name,
             email,
             password,
@@ -56,7 +56,7 @@ const registerUser = (req, res) => {
 // Get Login Page View 
 const loginView = (req, res) => {
 
-    res.render("login", {
+    res.render("User/login", {
     } );
 }
 
@@ -66,7 +66,7 @@ const loginUser = (req, res) => {
     //Required
     if (!email || !password) {
       console.log("Please fill in all the fields");
-      res.render("login", {
+      res.render("User/login", {
         email,
         password,
       });

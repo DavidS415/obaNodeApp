@@ -5,13 +5,15 @@ const { sendLink } = require("../services/sendLink");
 const { updateSent } = require("../services/updateSent");
 const { updateSigned } = require("../services/updateSigned");
 
+//Candidate views
+
 const offerView = (req, res) => {
     const id = req.params.id;
     Obrf.findById(id, function (err, allDetails) {
       if (err) {
         console.log(err);
       } else {
-        res.render("offerletter", {
+        res.render("Candidate/offerletter", {
           details: allDetails,
         });
       }
@@ -24,7 +26,7 @@ const offerView = (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        res.render("thankyou", {
+        res.render("Candidate/thankyou", {
           details: allDetails,
         });
       }
@@ -44,33 +46,6 @@ const offerSubmit = (req, res) => {
     };
   });
 };
-
-const offerSend = (req, res) => {
-  const id = req.params.id;
-  const offerid = id.toString();
-  sendLink(id);
-  updateSent(id);
-  Obrf.findById(id, function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.redirect("/sendlink/" + offerid);
-    };
-  });
-};
-
-const offerSent = (req, res) => {
-  const id = req.params.id;
-  Obrf.findById(id, function (err, allDetails) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.render("offersent", {
-        details: allDetails,
-      });
-    }
-  });
-}
 
 const saveSignature = (req, res) => {
   const id = req.params.id;
@@ -95,6 +70,35 @@ const deleteSignature = (req, res) => {
     };
   });
 };
+
+//User views
+
+const offerSend = (req, res) => {
+  const id = req.params.id;
+  const offerid = id.toString();
+  sendLink(id);
+  updateSent(id);
+  Obrf.findById(id, function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/sendlink/" + offerid);
+    };
+  });
+};
+
+const offerSent = (req, res) => {
+  const id = req.params.id;
+  Obrf.findById(id, function (err, allDetails) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render("User/offersent", {
+        details: allDetails,
+      });
+    }
+  });
+}
 
 module.exports = {
     offerView,
