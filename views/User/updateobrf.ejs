@@ -305,12 +305,31 @@
                 <input type="submit" value="Submit" name="submit" class="btn btn-primary">
     </form>
 </div><br>
-<div>
-    <p>Or send an offer letter:</p>
+<div id="send">
+    <p>Send candidate an offer letter:</p>
     <form action="/sendlink/<%= details._id%>" method="post">
         <button name="foo" value="" class="btn btn-primary">Send</button>
     </form>
 </div><br>
+<div id="resend" style="display: none;">
+    <p>Resend candidate an offer letter:</p>
+    <form action="/sendlink/<%= details._id%>" method="post">
+        <button name="foo" value="" class="btn btn-primary">Resend</button>
+    </form>
+</div><br>
+<script>
+    function offerLetterUpdate() {
+        var y = "<%= details.current_status%>";
+        console.log(y);
+        if ("<%= details.current_status%>" === "Offer Letter Signed" || "<%= details.current_status%>" === "Offer Letter Sent") {
+            document.getElementById("resend").style.display = "block";
+            document.getElementById("send").style.display = "none";
+        } else {
+            document.getElementById("send").style.display = "block"
+        }
+    }
+    window.onload = offerLetterUpdate;
+</script>
 <script>
     function selectUpdate(that) {
         if (that.value == "branch-select") {
