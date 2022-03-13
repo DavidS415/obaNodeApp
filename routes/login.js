@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 //Import authentication controller
-const { protectRoute } = require("../auth/protect");
+const { protectRoute, allowIf } = require("../auth/protect");
 
 //Import action controllers
 const {registerView, loginView, registerUser, loginUser, logoutUser } = require('../controllers/loginController');
@@ -12,12 +12,12 @@ const { updateView, updateObrfView, updateObrfEdit } = require("../controllers/u
 const { offerView, offerSubmit, thankyouView, offerSend, offerSent, saveSignature, deleteSignature } = require("../controllers/offerController");
 
 //Register Routes
-router.get('/register', registerView);
+router.get('/register', allowIf, registerView);
 router.post('/register', registerUser);
 
 //Login Routes
-router.get('/', loginView);
-router.get('/login', loginView);
+router.get('/', allowIf, loginView);
+router.get('/login', allowIf, loginView);
 router.post('/login', loginUser);
 
 //Logout Routes
