@@ -12,6 +12,9 @@ async function updateSent (x) {
     .then(function(result) {
         result = result;
     })
+    .catch(complete => {
+        return complete;
+    });
     return offerSent;
 }
 
