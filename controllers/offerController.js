@@ -4,6 +4,7 @@ const { savePDF } = require("../services/savePDF");
 const { sendLink } = require("../services/sendLink");
 const { updateSent } = require("../services/updateSent");
 const { updateSigned } = require("../services/updateSigned");
+const { createCandidateUser } = require("../services/createCandidateUser");
 
 //Candidate views
 
@@ -76,6 +77,7 @@ const deleteSignature = (req, res) => {
 const offerSend = (req, res) => {
   const id = req.params.id;
   const offerid = id.toString();
+  createCandidateUser(id);
   sendLink(id);
   updateSent(id);
   Obrf.findById(id, function (err) {
