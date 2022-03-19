@@ -5,7 +5,7 @@ const router = express.Router();
 const { protectRoute, allowIf, checkRoleAdmin, checkRoleUser, checkRoleCandidate } = require("../auth/protect");
 
 //Import action controllers
-const {registerView, loginView, registerUser, loginUser, logoutUser, redirectUser } = require('../controllers/loginController');
+const {registerView, loginView, registerUser, loginUser, logoutUser } = require('../controllers/loginController');
 const { dashboardView, errorView } = require("../controllers/dashboardController");
 const { formView, submitForm } = require("../controllers/formController");
 const { updateView, updateObrfView, updateObrfEdit } = require("../controllers/updateController");

@@ -13,6 +13,19 @@ const dashboardView = (req, res) => {
       }
     });
   };
+
+const errorView = (req, res) => {
+    Obrf.find({}, function (err) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("User/accessdenied", { 
+          user: req.user
+        });
+      }
+    });
+  };
   module.exports = {
     dashboardView,
+    errorView,
   };
