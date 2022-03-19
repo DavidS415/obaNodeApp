@@ -1,18 +1,18 @@
 const Obrf = require("../models/Obrf");
 
-const updateSent = (x) => {
+async function updateSent (x) {
     var id = x;
-    
-    let returnEmail = function(data) {
-        return Obrf.findByIdAndUpdate(data, { current_status: 'Offer Letter Sent' }, function(err) {
-            if (err)  {
-                console.log(err);
-            } else {
-                console.log('Candidate status updated');
-            }
-        }).then(data => data);
-    }
-    returnEmail(id);
+    const offerSent = await Obrf.findByIdAndUpdate(id, { current_status: 'Offer Letter Sent' }, function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('Candidate status updated');
+        }
+    })
+    .then(function(result) {
+        result = result;
+    })
+    return offerSent;
 }
 
 module.exports = {
