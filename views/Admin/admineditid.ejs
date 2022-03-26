@@ -1,0 +1,64 @@
+<%- include('adminlayout.ejs'); %>
+<p>What would you edit for User: <%= details.name%>?</p>
+<select onchange="selectUpdate(this)">
+    <option value="email-select">Email</option>
+    <option value="location-select">Location</option>
+    <option value="password-select">Password</option>
+    <option value="role-select">Role</option>
+</select>
+<div>
+    <form action="/adminedit/<%= details._id%>" method="post">
+            <div class="update-form" style="display: none;" id="email.update">
+                <label for="emailid">Email:</label>
+                <input type="email" id="emailid" name="email" value="<%= details.email%>">
+            </div>
+            <div class="update-form" style="display: none;" id="location.update">
+                <label for="locationid">Location:</label>
+                <input type="text" id="locationid" name="location" value="<%= details.location%>">
+            </div>
+            <div class="update-form" style="display: none;" id="role.update">
+                <label for="role-select">Branch:</label>
+                <select name="role" id="role-select">
+                    <option value="<%= details.role%>">Select New (currently: <%= details.role%>)</option>
+                    <option value="Admin">Admin</option>
+                    <option value="User">User</option>
+                    <option value="Candidate">Role</option>
+                </select>
+            </div>
+                <input type="submit" value="Update" name="submit" class="btn btn-primary">
+    </form>
+</div><br>
+</div>
+<script>
+    function selectUpdate(that) {
+        if (that.value == "email-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("email.update").style.display = "block";
+        }
+        else if (that.value == "location-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("location.update").style.display = "block";
+        }
+        else if (that.value == "password-select") {
+            location.href = "/admineditpassword/<%= details._id%>";
+        }
+        else if (that.value == "role-select") {
+            var x = document.getElementsByClassName("update-form");
+            for (var i = 0; i < x.length; i++) {
+                x[i].style.display = 'none';
+            }
+            document.getElementById("role.update").style.display = "block";
+        }
+        else {
+            alert('Error');
+        };
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+<%- include('adminlayout.ejs'); %>
+<p>See your pending items below:</p>
+<% details.forEach(function(item){ %>
+    <p><%= item.pending %></p>
+<% }) %>
+</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>OBA</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+.item1 { grid-area: header; }
+.item2 { grid-area: menu; }
+.item3 { grid-area: main; }
+
+.grid-container {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-areas:
+    'header header header header header header'
+    'menu main main main main main'
+    'menu main main main main main'
+    'menu main main main main main';
+  gap: 10px;
+  background-color: black;
+  padding: 10px;
+}
+.grid-container > div {
+  background-color: white;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+
+#logout {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  cursor: pointer;
+}
+table, th, td{
+        border:1px solid black;
+      }
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="/dashboard">Home</a>
+      <a class="navbar-brand" href="/update">Update an OBRF</a>
+      <a class="navbar-brand" href="/form">Create an OBRF</a>
+      <form method="post" action="/logout">
+        <button type="submit" class="navbar-brand" id="logout">Logout</button>
+      </form>
+    </nav>
+<div class="grid-container">
+<div class="item1">
+    <div class="row justify-content-center">
+        <h3>Welcome <%= user.name %> </h3><br>
+    </div>
+    <h4>This is the admin page</h4>
+</div>
+
+
+<div class="item2">
+    <ul>
+        <li><a href="/admincreate">Create new user</a></li>
+        <li><a href="/adminedit">Edit existing user</a></li>
+        <li><a href="/admin">Pending Items</a></li>
+    </ul>
+</div>
+  
+
+<div class="item3">

@@ -1,0 +1,14 @@
+<%- include('adminlayout.ejs'); %>
+<div>
+    <h5>Select a User to update:</h5>
+    <% if(details!=null) { %>
+        <select name="user_to_update" onchange="location = this.value;">
+        <% details.forEach(function(item){ %>
+        <option value="/adminedit/<%= item._id%>"><%= item.name%></option>
+        <% }) %>
+        </select>
+        <% } %>
+</div>
+</div>
+</body>
+</html>

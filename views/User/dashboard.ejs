@@ -6,6 +6,11 @@
 
     </div>
 </div>
+<% if (user.role === 'Admin') { %>
+    <div>
+        <a href="/admin">Admin Page</a>
+    </div>
+    <% } %>
 <div>
     <% if(details!=null) { %>
         <table>
