@@ -12,6 +12,18 @@ async function sendLink (x) {
       return email;
     });
 
+  const userName = await Obrf.findOne({ _id: id })
+    .then(function(result){
+      const name = result.first_name;
+      return name;
+    });
+
+  const primrayRecruiter = await Obrf.findOne({ _id: id })
+    .then(function(result){
+      const recrutier = result.placement_recruiter;
+      return recrutier;
+    });
+
   var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -23,8 +35,8 @@ async function sendLink (x) {
   var mailOptions = {
       from: 'applicationmailbox1860@gmail.com',
       to: userEmail,
-      subject: 'Congratulations on your offer!',
-      text: 'Go to: ' + url + ' to sign your offer letter!'
+      subject: 'Congratulations on your offer ' + userName + '!',
+      text: 'Go to: ' + url + ' to sign your offer letter! \n\n Your password will be your first two letters of first name and two letters of last name, and last four digits of your phone number (case sensitive with first letter of each name capitalzied). \n\n For example a John Smith with a phone numner of 510-333-1234 would have a password of "JoSm1234". \n\n If you have any questions please contact your recrutier: ' + primrayRecruiter +'.'
     };
     
   transporter.sendMail(mailOptions, function(error, info){
