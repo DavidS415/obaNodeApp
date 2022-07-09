@@ -31,7 +31,7 @@ async function sendLink (x) {
       from: 'applicationmailbox1860@gmail.com',
       to: userEmail,
       subject: 'Congratulations on your offer ' + userName + '!',
-      text: 'Go to: ' + url + ' to sign your offer letter! \n\n Your password will be your first two letters of first name and two letters of last name, and last four digits of your phone number (case sensitive with first letter of each name capitalzied). \n\n For example a John Smith with a phone numner of 510-333-1234 would have a password of "JoSm1234". \n\n If you have any questions please contact your recrutier: ' + primrayRecruiter +'.'
+      text: 'Click the link below to sign your offer letter! \n\n' + url + '\n\nYour password will be your first two letters of first name and two letters of last name, and last four digits of your phone number (case sensitive with first letter of each name capitalzied). \n\n For example a John Smith with a phone numner of 510-333-1234 would have a password of "JoSm1234". \n\n If you have any questions please contact your recrutier: ' + primrayRecruiter +'.'
     };
     
   sgMail
