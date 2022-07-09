@@ -1,6 +1,7 @@
 <%- include('adminlayout.ejs'); %>
 <p>What would you edit for User: <%= details.name%>?</p>
 <select onchange="selectUpdate(this)">
+    <option value="please-select">--Please Select:--</option>
     <option value="email-select">Email</option>
     <option value="location-select">Location</option>
     <option value="password-select">Password</option>
@@ -54,6 +55,9 @@
                 x[i].style.display = 'none';
             }
             document.getElementById("role.update").style.display = "block";
+        }
+        else if (that.value == "please-select") {
+            alert('Please select an item to edit');
         }
         else {
             alert('Error');

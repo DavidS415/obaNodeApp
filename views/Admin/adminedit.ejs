@@ -3,6 +3,7 @@
     <h5>Select a User to update:</h5>
     <% if(details!=null) { %>
         <select name="user_to_update" onchange="location = this.value;">
+        <option>--Please Select:--</option>
         <% details.forEach(function(item){ %>
         <option value="/adminedit/<%= item._id%>"><%= item.name%></option>
         <% }) %>
