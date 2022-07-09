@@ -1,4 +1,6 @@
 var nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const Obrf = require("../models/Obrf");
 
 async function sendLink (x) {
@@ -24,13 +26,6 @@ async function sendLink (x) {
       return recrutier;
     });
 
-  var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'applicationmailbox1860@gmail.com',
-        pass: 'P@ssword4212'
-      }
-    });
     
   var mailOptions = {
       from: 'applicationmailbox1860@gmail.com',
@@ -39,12 +34,13 @@ async function sendLink (x) {
       text: 'Go to: ' + url + ' to sign your offer letter! \n\n Your password will be your first two letters of first name and two letters of last name, and last four digits of your phone number (case sensitive with first letter of each name capitalzied). \n\n For example a John Smith with a phone numner of 510-333-1234 would have a password of "JoSm1234". \n\n If you have any questions please contact your recrutier: ' + primrayRecruiter +'.'
     };
     
-  transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
+  sgMail
+    .send(mailOptions)
+    .then(() => {
+      console.log('Email Sent')
+    })
+    .catch((error) => {
+      console.log(error)
     });
 }
 
