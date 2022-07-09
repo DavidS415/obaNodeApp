@@ -64,39 +64,46 @@ const loginView = (req, res) => {
 //Post Request that handles Login
 const loginUser = (req, res) => {
     const { email, password } = req.body;
-    async function returnLogin (x) {
-      const userRole = await userRoleCheck(x).then(function(result){
-        console.log(result);
-        return result;
-      })
-      const userId = await userIdCheck(x).then(function(result){
-        console.log(result);
-        return result;
-      })
-      console.log(userRole);
-      if (!email || !password) {
-        console.log("Please fill in all the fields");
-        res.render("User/login", {
-          email,
-          password,
-        });
-      } else {
-        if (userRole === 'Admin' || userRole === 'User') {
-          passport.authenticate("local", {
-            successRedirect: "/dashboard",
-            failureRedirect: "/login",
-            failureFlash: true,
-          })(req, res);
-        } else {
-          passport.authenticate("local", {
-            successRedirect: "/offerletter/" + userId,
-            failureRedirect: "/login",
-            failureFlash: true,
-          })(req, res);
+    User.findOne({ email: email }).then((user) => {
+      if (user) {
+        async function returnLogin (x) {
+          const userRole = await userRoleCheck(x).then(function(result){
+            console.log(result);
+            return result;
+          })
+          const userId = await userIdCheck(x).then(function(result){
+            console.log(result);
+            return result;
+          })
+          console.log(userRole);
+          if (!email || !password) {
+            console.log("Please fill in all the fields");
+            res.render("User/login", {
+              email,
+              password,
+            });
+          } else {
+            if (userRole === 'Admin' || userRole === 'User') {
+              passport.authenticate("local", {
+                successRedirect: "/dashboard",
+                failureRedirect: "/login",
+                failureFlash: true,
+              })(req, res);
+            } else {
+              passport.authenticate("local", {
+                successRedirect: "/offerletter/" + userId,
+                failureRedirect: "/login",
+                failureFlash: true,
+              })(req, res);
+            }
+          }
         }
+        returnLogin(email);
+      } else {
+        console.log('Email does not exist');
+        res.redirect('/login');
       }
-    }
-    returnLogin(email);
+    })
   }
   
 const logoutUser = (req, res) => {
